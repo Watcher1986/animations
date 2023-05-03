@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>cool animation</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="line-container">
+      <svg
+        viewBox="0 0 259 1624"
+        fill="none"
+        preserveAspectRatio="xMidYMax meet"
+      >
+        <path
+          d="M88 0.5V100.75V377.5C88 408 88 424.852 71.5 437L49.2903 458L8 412V498L48 459.25L80 430C80 430 115.5 398.5 150.5 402.5C150.5 402.5 223.5 401.5 255.5 458C255.5 458 246.5 480.5 204 498C161.5 515.5 143.5 509 143.5 509C88 509 88 550.5 88 632C88 971.561 86 1492.5 86 1492.5C86 1492.5 103 1488 123 1488C123 1452 123 1452.5 123 1430.5C123 1408.5 151.5 1404 159 1404V1426C159 1426 188 1425 194.5 1430.5C201 1436 216.597 1444.94 216.5 1459C216.301 1488 187.5 1488 187.5 1488C187.5 1488 190.5 1598 187.5 1608.5C184.5 1619 151 1620.5 151 1616.5C151 1612.5 148.846 1573.37 134 1554C114.556 1528.63 71.5 1523.5 71.5 1523.5C71.5 1523.5 55 1546.24 55 1616.5C55 1625 2.99998 1625 3 1578C3.00001 1552.5 34.5 1546.5 34.5 1511C34.5 1493.78 14.5 1474 14.5 1474C22.1 1474 47.5 1507.5 40.5 1507.5C33.4999 1507.5 80.5 1492.5 80.5 1492.5"
+          stroke="#D60000"
+          stroke-width="5"
+        />
+      </svg>
+    </div>
+
+    <section class="one">
+      <h1 class="scroll" data-rate=".4" data-direction="vertical">
+        ocean stuff
+      </h1>
+    </section>
+
+    <section class="two">
+      <h1 class="scroll" data-rate=".2" data-direction="vertical">
+        omg scroll
+      </h1>
+      <p>big watermark</p>
+    </section>
+
+    <script>
+      let path = document.querySelector('path');
+      let pathLength = path.getTotalLength();
+
+      path.style.strokeDasharray = pathLength + ' ' + pathLength;
+
+      path.style.strokeDashoffset = pathLength;
+
+      window.addEventListener('scroll', () => {
+        // What % down is it?
+        const scrollPercentage =
+          (document.documentElement.scrollTop + document.body.scrollTop) /
+          (document.documentElement.scrollHeight -
+            document.documentElement.clientHeight);
+
+        // Length to offset the dashes
+        const drawLength = pathLength * scrollPercentage;
+
+        // Draw in reverse
+        path.style.strokeDashoffset = pathLength - drawLength;
+
+        const target = document.querySelectorAll('.scroll');
+
+        target.forEach((elem) => {
+          let pos = window.scrollY * elem.dataset.rate;
+          if (elem.dataset.direction === 'vertical') {
+            return (elem.style.transform = `translateY(${pos}px)`);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
